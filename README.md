@@ -35,7 +35,7 @@ This project requires the following instalations:
 
 INSTALLATION
 ------------
-Top right corner
+Top right corner<br>
 If you want to install the front-end template you'll find it here at "ThemeForest" (https://themeforest.net/item/wandau-art-history-museum/31037918)
 
 CONFIGURATION
