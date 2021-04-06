@@ -14,13 +14,13 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Theme of the project: Art & Culture
-Name of the group: EXCELL
-Members working on it: 5
-Year of study: 2nd
-Fied of study: IT
-Name of the UNI: ESPRIT
-Suprvisor: Not-Specified
+Theme of the project: Art & Culture<br>
+Name of the group: EXCELL<br>
+Members working on it: 5<br>
+Year of study: 2nd<br>
+Fied of study: IT<br>
+Name of the UNI: ESPRIT<br>
+Suprvisor: Not-Specified<br>
 
 HTML5, CSS, JavaScript (JS), PHP7
 
