@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+.uideck.com	TRUE	/	FALSE	1999999999	__cfduid	d5285121a08809674b513afa63a78a79d1617617715
+preview.uideck.com	TRUE	/	FALSE	1999999999	SameSite	Lax
+
