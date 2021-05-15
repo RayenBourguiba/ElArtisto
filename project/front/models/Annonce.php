@@ -6,6 +6,7 @@ private ?string $nom = null;
 private ?int $prix = null;
 private ?string $descr = null;
 private ?string $img = null;
+private ?int $boosted = null;
 
 function __construct(string $categorie, string $nom, int $prix, string $descr, string $img){
 
@@ -36,6 +37,10 @@ function getImg(): string{
     return $this->img;
 }
 
+function getBoosted(): int{
+    return $this->boosted;
+}
+
 function setId(int $id): void{
 $this->id=$id;
 }
@@ -55,6 +60,9 @@ $this->descr=$descr;
 function setImg(string $img): void{
     $this->img=$img;
 }
+function setBoosted(int $boosted): void{
+    $this->boosted=$boosted;
+    }
 
 }
 ?>

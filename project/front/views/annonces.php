@@ -1,24 +1,27 @@
 <?PHP
 include "../controllers/AnnonceC.php";
 
-$annoncec=new AnnonceC();
+$annoncec = new AnnonceC();
 
-$listeAnnonces=$annoncec->afficherAnnonces();
+$listeAnnonces = $annoncec->afficherAnnonces();
 
-if(isset($_POST["Trier"])) 
-{
-    if($_POST["selon"]=="Nom")
-    $listeAnnonces=$annoncec->trierAnnoncesN();
-    else 
-    $listeAnnonces=$annoncec->trierAnnoncesC();
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$perpage = isset($GET['per-page']) && $_GET['per-page'] <= 50 ? (int)$_GET['per-page'] : 6;
+$listeAnnonces = $annoncec->AfficherPaginer($page, $perpage);
+$totalP = $annoncec->calcTotalRows($perpage);
+
+if (isset($_POST["Trier"])) {
+    if ($_POST["selon"] == "Nom")
+        $listeAnnonces = $annoncec->trierAnnoncesN();
+    else
+        $listeAnnonces = $annoncec->trierAnnoncesC();
 }
 
-if(isset($_POST["Rechercher"])) 
-{
-    if($_POST["selon"]=="Nom")
-    $listeAnnonces=$annoncec->rechercherAnnonceN($_POST["valeur"]);
+if (isset($_POST["Rechercher"])) {
+    if ($_POST["selon"] == "Nom")
+        $listeAnnonces = $annoncec->rechercherAnnonceN($_POST["valeur"]);
     else
-    $listeAnnonces=$annoncec->rechercherAnnonceC($_POST["valeur"]);
+        $listeAnnonces = $annoncec->rechercherAnnonceC($_POST["valeur"]);
 }
 
 ?>
@@ -117,8 +120,7 @@ if(isset($_POST["Rechercher"]))
     <link rel='stylesheet' id='elementor-post-11-css' href='includes/css/post-116667.css?ver=1615475306' media='all' />
     <link rel='stylesheet' id='elementor-global-css' href='includes/css/global4183.css?ver=1615475307' media='all' />
     <link rel='stylesheet' id='elementor-post-18-css' href='includes/css/post-1860e1.css?ver=1615486860' media='all' />
-    <link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;ver=5.7'
-        media='all' />
+    <link rel='stylesheet' id='google-fonts-1-css' href='https://fonts.googleapis.com/css?family=Roboto%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CRoboto+Slab%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2C400%2C400italic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic&amp;ver=5.7' media='all' />
     <script id='comments-js-extra'>
         var comment_data = {
             "name": "Name is required",
@@ -154,19 +156,20 @@ if(isset($_POST["Rechercher"]))
 <body class="page-template page-template-page-collections page-template-page-collections-php page page-id-18 elementor-default elementor-kit-11 elementor-page elementor-page-18">
     <div class="preloader" id="preloader">
         <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" version="1.1">
-    <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,1080 1294.66667,1080 960,1080 C625.333333,1080 305.333333,1080 0,1080 L0,0 Z"></path>
-  </svg>
+            <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,1080 1294.66667,1080 960,1080 C625.333333,1080 305.333333,1080 0,1080 L0,0 Z"></path>
+        </svg>
         <div class="inner">
             <canvas class="progress-bar" id="progress-bar" width="200" height="200"></canvas>
             <figure><img src="includes/img/preloader.png" alt="L'artisto | Art &amp; History Museum WordPress Theme"></figure>
-            <small>LOADING</small> </div>
+            <small>LOADING</small>
+        </div>
         <!-- end inner -->
     </div>
     <!-- end preloder -->
     <div class="page-transition">
         <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" version="1.1">
-    <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,980 1294.66667,930 960,930 C625.333333,930 305.333333,980 0,1080 L0,0 Z"></path>
-  </svg>
+            <path d="M0,0 C305.333333,0 625.333333,0 960,0 C1294.66667,0 1614.66667,0 1920,0 L1920,1080 C1614.66667,980 1294.66667,930 960,930 C625.333333,930 305.333333,980 0,1080 L0,0 Z"></path>
+        </svg>
     </div>
     <!-- end page-transition -->
     <div class="smooth-scroll">
@@ -186,8 +189,8 @@ if(isset($_POST["Rechercher"]))
             <!-- end search-box -->
             <aside class="side-widget">
                 <svg viewBox="0 0 600 1080" preserveAspectRatio="none" version="1.1">
-    <path d="M540,1080H0V0h540c0,179.85,0,359.7,0,539.54C540,719.7,540,899.85,540,1080z"></path>
-  </svg>
+                    <path d="M540,1080H0V0h540c0,179.85,0,359.7,0,539.54C540,719.7,540,899.85,540,1080z"></path>
+                </svg>
                 <figure class="logo"> <img src="includes/img/logo-light.png" alt="L'artisto | Art &amp; History Museum WordPress Theme"> </figure>
                 <!-- end logo -->
                 <div class="inner">
@@ -255,10 +258,10 @@ if(isset($_POST["Rechercher"]))
 
                 <div class="hamburger-menu">
                     <svg class="hamburger" width="30" height="30" viewBox="0 0 30 30">
-      <path class="line line-top" d="M0,9h30"/>
-      <path class="line line-center" d="M0,15h30"/>
-      <path class="line line-bottom" d="M0,21h30"/>
-    </svg>
+                        <path class="line line-top" d="M0,9h30" />
+                        <path class="line line-center" d="M0,15h30" />
+                        <path class="line line-bottom" d="M0,21h30" />
+                    </svg>
                 </div>
                 <!-- end hamburger-menu -->
                 <div class="navbar-button"> <a href="form_annonce.php">CREER UNE ANNONCE</a> </div>
@@ -267,8 +270,8 @@ if(isset($_POST["Rechercher"]))
             <header class="page-header" style="background: url(includes/img/page-header.jpg) center #ffffff;">
                 <div class="inner">
                     <svg width="580" height="400" class="svg-morph">
-      <path id="svg_morph" d="m261,30.4375c0,0 114,6 151,75c37,69 37,174 6,206.5625c-31,32.5625 -138,11.4375 -196,-19.5625c-58,-31 -86,-62 -90,-134.4375c12,-136.5625 92,-126.5625 129,-127.5625z" />
-    </svg>
+                        <path id="svg_morph" d="m261,30.4375c0,0 114,6 151,75c37,69 37,174 6,206.5625c-31,32.5625 -138,11.4375 -196,-19.5625c-58,-31 -86,-62 -90,-134.4375c12,-136.5625 92,-126.5625 129,-127.5625z" />
+                    </svg>
                     <h1>Annonces</h1>
                     <p>Vous pouvez créer votre propre annonce, la booster ou encore remplir votre panier pour passer vos commandes</p>
                 </div>
@@ -280,39 +283,76 @@ if(isset($_POST["Rechercher"]))
             <section class="content-section">
                 <div class="container">
                     <div class="row justify-content-center">
+
                         <?PHP
-                            foreach($listeAnnonces as $Annonce){
+                        foreach ($listeAnnonces as $Annonce) {
+                            if ($Annonce['boosted'] == 1) {
                         ?>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="collection-box" data-scroll data-scroll-speed="0">
-                                <figure><img src="<?PHP echo $Annonce ['img']; ?>" alt="<?PHP echo $Annonce ['nom']; ?>"></figure>
-                                <h4><a href="annonce.php?id=<?PHP echo $Annonce ['id']; ?>"><?PHP echo $Annonce['nom']; ?></a></h4>
-                                <h4><?PHP echo $Annonce['prix']; ?> TND</h4>   
-                            </div>
-                        </div>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="collection-box" data-scroll data-scroll-speed="0">
+                                        <figure><img src="<?PHP echo $Annonce['img']; ?>" alt="<?PHP echo $Annonce['nom']; ?>"></figure>
+                                        <h4><a href="annonce.php?id=<?PHP echo $Annonce['id']; ?>"><?PHP echo $Annonce['nom']; ?></a></h4>
+                                        <h4><?PHP echo $Annonce['prix']; ?> TND</h4>
+                                    </div>
+                                </div>
                         <?PHP
                             }
+                        }
                         ?>
-                        <form method="POST" action="" >
-                        <label>
+
+                        <?PHP
+                        foreach ($listeAnnonces as $Annonce) {
+                            if ($Annonce['boosted'] == 0) {
+                        ?>
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="collection-box" data-scroll data-scroll-speed="0">
+                                        <figure><img src="<?PHP echo $Annonce['img']; ?>" alt="<?PHP echo $Annonce['nom']; ?>"></figure>
+                                        <h4><a href="annonce.php?id=<?PHP echo $Annonce['id']; ?>"><?PHP echo $Annonce['nom']; ?></a></h4>
+                                        <h4><?PHP echo $Annonce['prix']; ?> TND</h4>
+                                    </div>
+                                </div>
+                        <?PHP
+                            }
+                        }
+                        ?>
+
+                        <form method="POST" action="">
+                            <label>
                                 <select name="selon" class="comboboxc">
                                     <option value="" disabled selected>Selon..</option>
-                                    <option value="Catégorie" >Catégorie</option>
-                                    <option value="Nom" >Nom</option>
-                                </select>     
-                        </label>
-                        <label>
+                                    <option value="Catégorie">Catégorie</option>
+                                    <option value="Nom">Nom</option>
+                                </select>
+                            </label>
+                            <label>
                                 <input type="search" class="search-field" placeholder="recherche.." value="" name="valeur" />
-                        </label>
-                        <input type="submit" class="search-submit" value="Trier" name="Trier" />
-                        <input type="submit" class="search-submit" value="Rechercher" name="Rechercher" />
+                            </label>
+                            <input type="submit" class="search-submit" value="Trier" name="Trier" />
+                            <input type="submit" class="search-submit" value="Rechercher" name="Rechercher" />
                         </form>
+
                         <div class="pagination-bar">
+
                         </div>
                     </div>
                 </div>
             </section>
-            
+
+
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pagination-blog justify-content-center">
+
+                    <?php
+
+                    for ($x = 1; $x <= $totalP; $x++) :
+
+                    ?>
+                        <li class="page-item"><a class="page-link" href="?page=<?php echo $x; ?>&per-page=<?php echo $perpage; ?>"><?php echo $x; ?></a></li>
+
+                    <?php endfor; ?>
+                    </u1>
+            </nav>
+
             <section class="content-section no-spacing" data-background="#F1EDD5">
                 <div class="container">
                     <div class="row">
@@ -346,9 +386,9 @@ if(isset($_POST["Rechercher"]))
                                                 <input type="email" placeholder="Enter your e-mail address">
                                                 <input type="submit" value="SIGN UP">
                                             </div>
-                                            <small>Will be used in accordance with our 
-<a href="../privacy-policy/index.html">Privacy Policy</a></small></div><label style="display: none !important;">Leave this field empty if you're human: <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label><input
-                                            type="hidden" name="_mc4wp_timestamp" value="1617619617" /><input type="hidden" name="_mc4wp_form_id" value="468" /><input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-1" />
+                                            <small>Will be used in accordance with our
+                                                <a href="../privacy-policy/index.html">Privacy Policy</a></small>
+                                        </div><label style="display: none !important;">Leave this field empty if you're human: <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off" /></label><input type="hidden" name="_mc4wp_timestamp" value="1617619617" /><input type="hidden" name="_mc4wp_form_id" value="468" /><input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-1" />
                                         <div class="mc4wp-response"></div>
                                     </form>
                                     <!-- / Mailchimp for WordPress Plugin -->
@@ -396,9 +436,11 @@ if(isset($_POST["Rechercher"]))
                         <div class="col-lg-4">
                             <div class="widget_text widget footer-widget">
                                 <h6 class="widget-title">Visit Us Now</h6>
-                                <div class="textwidget custom-html-widget"><address class="address">
-            Cromwell Road New Town SW7 <strong>London - England</strong> <i class="fas fa-info-circle"></i> +44 (0)20 7942 2000
-            </address></div>
+                                <div class="textwidget custom-html-widget">
+                                    <address class="address">
+                                        Cromwell Road New Town SW7 <strong>London - England</strong> <i class="fas fa-info-circle"></i> +44 (0)20 7942 2000
+                                    </address>
+                                </div>
                             </div>
                         </div>
                     </div>

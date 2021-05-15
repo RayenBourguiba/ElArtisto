@@ -4,7 +4,7 @@ require_once "../models/Boost.php";
 class BoostC{
 
 	function afficherBoosts(){
-	$sql ="SELECT id,type,nombre,prixtotal FROM boost";
+	$sql ="SELECT * FROM boost";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -32,6 +32,20 @@ $query->execute([
 catch (Exception $e){
 echo 'Erreur: '.$e->getMessage();
 }
+try {
+	$db = config::getConnexion();
+	$query = $db->prepare(
+	'UPDATE annonce SET
+	boosted = 1
+	WHERE id = :id_annonce'
+	);
+	$query->execute([
+	'id_annonce' => $id_annonce
+	]);
+	echo $query->rowCount() . " records UPDATED successfully <br>";
+	} catch (PDOException $e) {
+	$e->getMessage();
+	}
 }
 
 function modifierBoost($Boost, $id){

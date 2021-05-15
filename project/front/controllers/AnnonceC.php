@@ -4,7 +4,7 @@ require_once "../models/Annonce.php";
 class AnnonceC{
 
 	function afficherAnnonces(){
-	$sql ="SELECT id,nom,prix,img FROM annonce";
+	$sql ="SELECT id,nom,prix,descr,img,boosted FROM annonce";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -14,6 +14,36 @@ class AnnonceC{
 		die('Erreur: '.$e->getMessage());
 	}
 }
+
+function AfficherPaginer($page, $perPage)
+    {
+        $start = ($page > 1) ? ($page * $perPage) - $perPage : 0;
+        $sql = "SELECT id,nom,prix,descr,img,boosted FROM annonce LIMIT {$start},{$perPage}";
+        $db = config::getConnexion();
+        try {
+            $liste = $db->prepare($sql);
+            $liste->execute();
+            $liste = $liste->fetchAll(PDO::FETCH_ASSOC);
+            return $liste;
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
+
+	public function calcTotalRows($perPage)
+    {
+        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM annonce";
+        $db = config::getConnexion();
+        try {
+
+            $liste = $db->query($sql);
+            $total = $db->query("SELECT FOUND_ROWS() as total")->fetch()['total'];
+            $pages = ceil($total / $perPage);
+            return $pages;
+        } catch (Exception $e) {
+            die('Erreur: ' . $e->getMessage());
+        }
+    }
 
 	function afficherAnnonce($id){
 	$sql="SELECT categorie,nom,prix,descr,img FROM annonce WHERE id = :id";
@@ -140,6 +170,20 @@ function trierAnnoncesN(){
 	}
 	catch (Exception $e){
 		die('Erreur: '.$e->getMessage());
+	}
+}
+
+function pagination(){
+	$countsql="SELECT COUNT(*) FROM annonce";
+	$db = config::getConnexion();
+	try {
+		$countsql = $db->prepare($countsql);
+		$countsql->execute(); 
+		$result = $countsql->fetch(); 
+		return $result;
+	}
+	catch (PDOException $e) {
+		$e->getMessage();
 	}
 }
 

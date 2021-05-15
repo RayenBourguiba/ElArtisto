@@ -330,13 +330,13 @@ if(isset($_POST["submit"]))
                                 </select>     
                             </label>
                                 <label>
-                                <input type="search" class="search-field" placeholder="Nom de l'article" value="" name="nom" />
+                                <input type="search" class="search-field" placeholder="Nom de l'article" value="" name="nom" required pattern="[0-9a-zA-Z-\.]{1,20}" />
                             </label>
                                 <label>
                                 <input type="search" class="search-field" placeholder="Prix" value="" name="prix" />
                             </label>
                                 <label>
-                                <textarea rows="4" cols="50" name="descr" class="descr" placeholder="Description"></textarea>
+                                <textarea rows="4" cols="50" name="descr" class="descr" placeholder="Description" required pattern="[0-9a-zA-Z-\.]{0,50}"></textarea>
                             </label>
                                 </label>
                                 <label>

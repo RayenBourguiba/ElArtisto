@@ -1,32 +1,17 @@
 <?PHP
+
+use Exception as GlobalException;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPmailer/src/Exception.php';
+require 'PHPmailer/src/SMTP.php';
+require 'PHPmailer/src/PHPMailer.php';
 include "../controllers/BoostC.php";
 include_once '../models/Boost.php';
 
 $boostc=new BoostC();
 $listeBoosts=$boostc->afficherBoosts();
-
-$error = "";
-
-if (
-    isset($_POST["id"]) && 
-    isset($_POST["type"]) && 
-    isset($_POST["nombre"]) 
-){
-    if (
-        !empty($_POST["id"]) && 
-        !empty($_POST["type"]) && 
-        !empty($_POST["nombre"]) 
-    ) {
-        $boost = new Boost(
-        $_POST['type'],$_POST['nombre']    
-        );
-        
-        $boostc->modifierBoost($boost, $_POST['id']);
-        header('Location:boosts.php');
-    }
-    else
-        $error = "Missing information";
-}
 
 if(isset($_POST["Trier"])) 
 {
@@ -43,6 +28,36 @@ if(isset($_POST["Rechercher"]))
     else
     $listeBoosts=$boostc->rechercherBoostP($_POST["valeur"]);
 }
+
+if(isset($_POST["payer"]))
+{
+    $mail = new PHPMailer(true);
+    try
+    {  
+    $mail->SMTPDebug = 1;
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'artisto1912@gmail.com';
+    $mail->Password = 'artisto191201';
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
+    $mail->setFrom('no-reply@artisto.org','Mailer');
+    $mail->addAddress($_POST['Email']);
+    $mail->isHTML(true);
+    $mail->Subject = 'Confirmation de paiement';
+    $mail->Body = 'Merci pour le paiement!';
+    
+    $mail->send();
+    echo "message has been sent";
+    }
+    catch(GlobalException $e)
+    {
+        echo "message could not be sent";
+        echo 'Mailer error: '.$mail->ErrorInfo;
+
+    }
+} 
 
 ?>
 
@@ -353,29 +368,27 @@ if(isset($_POST["Rechercher"]))
                 <div class="col-lg-4">
                     <aside class="sidebar widget-area">
                         <div id="search-2" class="widget widget_search">
-                            <h6 class="widget-title">Modifier votre boost</h6>
+                            <h6 class="widget-title">Passer au paiement</h6>
                             <form method="POST" class="search-form" action="">
                                 <label>
                                 <input type="search" class="search-field" placeholder="Id" value="" name="id" />
                             </label>
                             <label>
-                                <select name="type" class="comboboxc">
-                                    <option value="" disabled selected>Type</option>
-                                    <option value="Annonce à la une" >Annonce à la une</option>
-                                    <option value="Boost première position" >Boost première position</option>
-                                </select>     
+                                <input type="search" class="search-field" placeholder="Nom" value="" name="nom" />
                             </label>
                             <label>
-                                <select name="nombre" class="comboboxc">
-                                    <option value="" disabled selected>Nombre de boosts</option>
-                                    <option value="2" >2</option>
-                                    <option value="4" >4</option>
-                                    <option value="6" >6</option>
-                                    <option value="8" >8</option>
-                                    <option value="10" >10</option>
-                                </select>     
+                                <input type="search" class="search-field" placeholder="Email" value="" name="Email" />
                             </label>
-                                <input type="submit" class="search-submit" value="Modifier" name="modifier" id="modifier" />
+                            <label>
+                                <input type="search" class="search-field" placeholder="Num ° carte de crédit" value="" name="num" />
+                            </label>
+                            <label>
+                                <input type="date" class="search-field" placeholder="date d'expiration" value="" name="date" />
+                            </label>
+                            <label>
+                                <input type="search" class="search-field" placeholder="CCV" value="" name="CCV" />
+                            </label>
+                                <input type="submit" class="search-submit" value="Confirmer" name="payer" id="payer" />
                                 <div class="pagination-bar">
                                 </div>
                         </div>
