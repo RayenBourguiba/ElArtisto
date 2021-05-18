@@ -545,6 +545,7 @@ Frank Handrics
                                                 <th>type</th>
                                                 <th>nombre</th>
                                                 <th>prix</th>
+                                                <th>paiement</th>
                                                 <th>suppression</th>
                                             </tr>
                                         </thead>
@@ -558,6 +559,8 @@ Frank Handrics
                                                 <td><?PHP echo $Boost['type'];?></td>
                                                 <td><?PHP echo $Boost['nombre'];?></td>
                                                 <td><?PHP echo $Boost['prixtotal'];?></td>
+                                                <td><?PHP if($Boost['payed']==1) echo "payé"; else echo "impayé";?></td>
+                    
                                                 <td><a href="supprimerBoostback.php?id=<?PHP echo $Boost['id']; ?>"> Supprimer </a></td>
                                             </tr>
                                         <?PHP

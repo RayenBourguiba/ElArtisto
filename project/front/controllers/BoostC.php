@@ -85,7 +85,7 @@ function supprimerBoost($id) {
 }
 
 function rechercherBoostT($type) {            
-	$sql = "SELECT id,type,nombre,prixtotal from boost where type=:type"; 
+	$sql = "SELECT id,type,nombre,prixtotal,payed from boost where type=:type"; 
 	$db = config::getConnexion();
 	try {
 		$query = $db->prepare($sql);
@@ -101,7 +101,7 @@ function rechercherBoostT($type) {
 }
 
 function rechercherBoostP($prixtotal) {            
-	$sql = "SELECT id,type,nombre,prixtotal from boost where prixtotal=:prixtotal"; 
+	$sql = "SELECT id,type,nombre,prixtotal,payed from boost where prixtotal=:prixtotal"; 
 	$db = config::getConnexion();
 	try {
 		$query = $db->prepare($sql);
@@ -117,7 +117,7 @@ function rechercherBoostP($prixtotal) {
 }
 
 function trierBoostsT(){
-	$sql ="SELECT id,type,nombre,prixtotal FROM boost ORDER BY type ASC";
+	$sql ="SELECT id,type,nombre,prixtotal,payed FROM boost ORDER BY type ASC";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -129,7 +129,7 @@ function trierBoostsT(){
 }
 
 function trierBoostsP(){
-	$sql ="SELECT id,type,nombre,prixtotal FROM boost ORDER BY prixtotal ASC";
+	$sql ="SELECT id,type,nombre,prixtotal,payed FROM boost ORDER BY prixtotal ASC";
 	$db = config::getConnexion();
 	try{
 		$liste = $db->query($sql);
@@ -138,6 +138,23 @@ function trierBoostsP(){
 	catch (Exception $e){
 		die('Erreur: '.$e->getMessage());
 	}
+}
+
+function payerboost($id){
+	try {
+		$db = config::getConnexion();
+		$query = $db->prepare(
+		'UPDATE boost SET
+		payed = 1
+		WHERE id = :id'
+		);
+		$query->execute([
+		'id' => $id
+		]);
+		echo $query->rowCount() . " records UPDATED successfully <br>";
+		} catch (PDOException $e) {
+		$e->getMessage();
+		}
 }
 
 }

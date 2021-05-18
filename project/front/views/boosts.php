@@ -34,7 +34,7 @@ if(isset($_POST["payer"]))
     $mail = new PHPMailer(true);
     try
     {  
-    $mail->SMTPDebug = 1;
+    $mail->SMTPDebug = 0;
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
@@ -46,7 +46,7 @@ if(isset($_POST["payer"]))
     $mail->addAddress($_POST['Email']);
     $mail->isHTML(true);
     $mail->Subject = 'Confirmation de paiement';
-    $mail->Body = 'Merci pour le paiement!';
+    $mail->Body = 'Cher(e) Mr/Mme '. $_POST['nom'].', Merci pour votre confiance! Votre paiement a été effectué avec succès.';
     
     $mail->send();
     echo "message has been sent";
@@ -57,6 +57,7 @@ if(isset($_POST["payer"]))
         echo 'Mailer error: '.$mail->ErrorInfo;
 
     }
+    $boostc->payerboost($_POST['id']);
 } 
 
 ?>
@@ -332,6 +333,7 @@ if(isset($_POST["payer"]))
                          </TR> 
                          <?PHP
                             foreach($listeBoosts as $Boost){
+                                if($Boost['payed']==0){
                         ?>
                         <TR> 
                             <TD> <?PHP echo $Boost['id'];?> </TD> 
@@ -344,6 +346,7 @@ if(isset($_POST["payer"]))
                          </TR> 
                          <?PHP
                             }
+                        }
                         ?>
                             </TABLE>
                             <form method="POST" action="" >
@@ -385,6 +388,7 @@ if(isset($_POST["payer"]))
                             <label>
                                 <input type="date" class="search-field" placeholder="date d'expiration" value="" name="date" />
                             </label>
+                            <p></p>
                             <label>
                                 <input type="search" class="search-field" placeholder="CCV" value="" name="CCV" />
                             </label>
