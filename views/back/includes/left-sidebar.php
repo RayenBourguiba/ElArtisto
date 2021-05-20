@@ -135,6 +135,33 @@
                     </a>
               <?php }
             ?>
+
+<?php 
+                if($curr_page == 'tableCommandes.php') { ?>
+                    <a class="nav-link active" href="tableCommandes.php" ><div class="nav-link-icon"><i data-feather="layout"></i></div>
+                        Commandes
+                    </a>
+               <?php } else { ?>
+                    <a class="nav-link" href="tableCommandes.php" ><div class="nav-link-icon"><i data-feather="layout"></i></div>
+                    Commandes
+                    </a>
+              <?php }
+            ?>
+
+<?php 
+                if($curr_page == 'tableLivraisons.php') { ?>
+                    <a class="nav-link active" href="tableLivraisons.php" ><div class="nav-link-icon"><i data-feather="layout"></i></div>
+                        Livraisons
+                    </a>
+               <?php } else { ?>
+                    <a class="nav-link" href="tableLivraisons.php" ><div class="nav-link-icon"><i data-feather="layout"></i></div>
+                    Livraisons
+                    </a>
+              <?php }
+            ?>
+
+
+
             
 
             

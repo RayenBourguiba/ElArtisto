@@ -62,7 +62,7 @@ $mail = new PHPMailer(true);
     {  
         
 
-    $mail->SMTPDebug = 1;
+    $mail->SMTPDebug = 0;
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
@@ -76,7 +76,7 @@ $mail = new PHPMailer(true);
     $mail->Subject = 'Thank you for your purchase '.$_POST["firstname"].' '.$_POST["lastname"].'';
     $message = file_get_contents('receiptmail.phtml'); 
     // VARIABLES
-        $message = str_replace('%name%',$_POST["firstname"],$message);
+        $message = str_replace('%name%',$_POST["firstname"].' '.$_POST["firstname"],$message);
         $message = str_replace('%eventtitle%',$exhibition['title'],$message);
         $message = str_replace('%reservationID%',$exhibition['id'],$message);
         $message = str_replace('%date%',$exhibition['datee'],$message);
@@ -87,7 +87,7 @@ $mail = new PHPMailer(true);
 
     
     $mail->send();
-    echo "message has been sent";
+    
     }
     catch(GlobalException $e)
     {

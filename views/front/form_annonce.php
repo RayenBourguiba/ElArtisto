@@ -19,7 +19,7 @@ if (!empty($_POST["categorie"]) && !empty($_POST["nom"]) && !empty($_POST["prix"
 {
 $annonce = new Annonce($_POST['categorie'], $_POST['nom'], $_POST['prix'], $_POST['descr'], $img, $_SESSION['user_id'] );
 $annoncec->ajouterAnnonce($annonce);
-//header('Location:annonces.php');
+header('Location:annonces.php');
 }
 else
 $error = "Missing information";

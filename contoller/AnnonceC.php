@@ -204,6 +204,23 @@ function afficherMesAnnonces($host){
 	}
 }
 
+function rechercherAnnonceID($id) {            
+	$sql = "SELECT * from annonce where id=:id"; 
+	$db = config::getConnexion();
+	try {
+		$query = $db->prepare($sql);
+		$query->execute([
+			'id' => $id
+		]); 
+		$result = $query->fetch(); 
+		return $result;
+	}
+	catch (PDOException $e) {
+		$e->getMessage();
+	}
+}
+
+
 
 
 }

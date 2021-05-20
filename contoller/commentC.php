@@ -1,7 +1,7 @@
 <?php
 
 
-require_once '../config.php';
+require_once "../back/includes/config.php";
 class CommentsC
 {
     public function showComments()

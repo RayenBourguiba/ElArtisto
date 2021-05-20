@@ -211,7 +211,7 @@ if(isset($_POST["payer"]))
 
             <section class="content-section">
             
-                <div class="col-lg-8">
+                <div class="col-lg-6">
                 
                     <aside class="sidebar widget-area">
                         <div id="search-2" class="widget widget_search">

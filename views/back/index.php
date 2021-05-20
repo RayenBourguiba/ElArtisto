@@ -4,6 +4,8 @@ require_once "../../contoller/AnnonceC.php";
 require_once "../../contoller/BoostC.php";
 require_once "../../contoller/reservationFunctions.php";
 require_once "../../contoller/exhibitionFunctions.php";
+require_once "../../contoller/commandeC.php";
+require_once "../../contoller/livraisonC.php";
 ?>
 <?php require_once('./includes/header.php'); ?>
 
@@ -176,24 +178,37 @@ require_once "../../contoller/exhibitionFunctions.php";
                             </div>
                         </div>
 
-                        <div class="col-xl-3 col-md-6">
+                        
+
+                    </div>
+                    <div class="row">
+                    
+                    <div class="col-xl-3 col-md-6">
                             <div class="card bg-success text-white mb-4">
                                 <div class="card-body d-flex align-items-center justify-content-between">
-                                   <p>7ott hna esm table mta3ek</p>
-                                    <p>7ott hna nombre</p>
+                                   <p>Commandes</p>
+                                   <?PHP $commande = new commandeC(); 
+                                    $listCommandes = $commande->afficherCommande();
+                                    $Commandes_count = $listCommandes->rowCount(); ?>
+                                    <p><?php echo $Commandes_count; ?></p>
+                                
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="users.php">View Details</a>
+                                    <a class="small text-white stretched-link" href="tableCommandes.php">View Details</a>
                                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                 </div>
                             </div>
                         </div>
+                        
 
                         <div class="col-xl-3 col-md-6">
                             <div class="card bg-primary text-white mb-4">
                                 <div class="card-body d-flex align-items-center justify-content-between">
-                                   <p>7ott hna esm table mta3ek</p>
-                                    <p>7ott hna nombre</p>
+                                   <p>Livraisons</p>
+                                   <?PHP $livraison = new livraisonC(); 
+                                    $listLivraisons = $livraison->afficherLivraison();
+                                    $Livraisons_count = $listLivraisons->rowCount(); ?>
+                                    <p><?php echo $Livraisons_count; ?></p>
                                 </div>
                                 <div class="card-footer d-flex align-items-center justify-content-between">
                                     <a class="small text-white stretched-link" href="users.php">View Details</a>
@@ -201,7 +216,6 @@ require_once "../../contoller/exhibitionFunctions.php";
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     
                     

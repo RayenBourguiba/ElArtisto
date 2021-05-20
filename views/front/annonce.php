@@ -231,7 +231,13 @@ if (isset($_POST['supprimer'])) {
                                                 <form action="" method="POST">
                                                     <input type="submit" class="search-submit" value="Supprimer" name="supprimer" id="supprimer" />
                                                 </form>
-                                                <?php } }?>
+                                                <?php }
+                                                else {?>
+                                                <form action="ajouterCommande.php?id=<?php echo $_GET['id'];?>" method="POST">
+                                                    <input type="submit" class="search-submit" value="Ajouter au panier" name="Ajouter au panier" id="Ajouter au panier" />
+                                                </form>
+
+                                                <?php }} ?>
                                                 <div class="pagination-bar">
                                                 </div>
                                                 
