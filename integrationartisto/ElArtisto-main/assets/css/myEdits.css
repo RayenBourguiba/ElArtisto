@@ -1,0 +1,26 @@
+.centerbutton {
+    margin-left: 70px;
+}
+
+.sidebar .widget form input[type=text] {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.dateClass {
+    margin-bottom: 10px;
+}
+
+.search-field form input[type=time] {
+    margin-bottom: 10px;
+}
+
+.search-field form input[type=number] {
+    margin-bottom: 10px;
+}
+
+#bigDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
